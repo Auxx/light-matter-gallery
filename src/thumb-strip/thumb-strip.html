@@ -8,7 +8,7 @@
     @for (image of images; track image.thumbnail; let idx = $index) {
       <button [class.selected]="selected === idx"
               [title]="image.name"
-              (click)="imageClicked(image)">
+              (click)="imageClicked(image, idx)">
         <img [ngSrc]="image.thumbnail" [width]="w" [height]="h" [alt]="image.alt">
         <span>{{ image.name }}</span>
       </button>

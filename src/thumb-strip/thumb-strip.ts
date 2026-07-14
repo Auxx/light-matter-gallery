@@ -7,6 +7,7 @@ import {
   ElementRef,
   inject,
   input,
+  output,
   viewChild,
   ViewEncapsulation
 } from '@angular/core';
@@ -38,6 +39,10 @@ export class ThumbStrip {
 
   readonly height = input(135);
 
+  readonly indexChange = output<number>();
+
+  readonly imageChange = output<ImageItem>();
+
   protected readonly standAlone = computed(() => this.images() === undefined);
 
   private readonly links = computed(() => Array.from(this.contents().nativeElement.querySelectorAll('a')));
@@ -67,7 +72,7 @@ export class ThumbStrip {
     });
   }
 
-  readonly imageClicked = (item: ImageItem) => {
+  readonly imageClicked = (item: ImageItem, index: number) => {
     if (this.standAlone()) {
 
       if (this.newTab() === false) {
@@ -78,6 +83,9 @@ export class ThumbStrip {
       this.document.defaultView?.open(item.fullSize, '_blank');
       return;
     }
+
+    this.indexChange.emit(index);
+    this.imageChange.emit(item);
   };
 
   private readonly getName = (item: ImageItem): string => {
