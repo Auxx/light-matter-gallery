@@ -1,0 +1,88 @@
+:host {
+  --color-lowest: oklch(0.12 0.0203 70);
+  --color-low: oklch(0.3 0.0203 70);
+  --color-medium: oklch(0.5 0.04 70);
+  --color-high: oklch(0.7 0.04 70);
+  --background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 16"><rect x="3" y="3" width="8" height="12" rx="3" ry="3" style="fill: oklch(0.3 0.0203 70);"></rect></svg>');
+
+  display: block;
+  box-sizing: border-box;
+}
+
+.source-content {
+  display: none;
+}
+
+.reel {
+  width: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-medium) var(--color-lowest);
+  background-color: var(--color-lowest);
+
+  .wrapper {
+    background-image: var(--background-image), var(--background-image);
+    background-repeat: repeat-x, repeat-x;
+    background-size: 20px 16px, 20px 16px;
+    background-position: left top, left bottom;
+
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 12px;
+    padding: 16px;
+    min-width: 100%;
+    width: fit-content;
+    height: fit-content;
+  }
+
+  button {
+    background: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    color: #F0F0F0;
+
+    border: 2px solid transparent;
+    opacity: 0.6;
+    border-radius: 8px;
+    overflow: hidden;
+    width: fit-content;
+    height: fit-content;
+    flex-shrink: 0;
+    position: relative;
+
+    transition: opacity 250ms ease-in-out, border-color 350ms ease-in-out;
+
+    img {
+      display: block;
+    }
+
+    span {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: var(--color-low);
+      color: var(--color-high);
+      padding: 4px 8px;
+      overflow: hidden;
+      font-family: sans-serif;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 250ms ease-in-out;
+    }
+
+    &.selected, &:hover {
+      opacity: 1;
+
+      span {
+        opacity: 1;
+      }
+    }
+  }
+}
