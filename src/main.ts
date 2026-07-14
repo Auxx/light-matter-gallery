@@ -1,6 +1,10 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { App } from './app/app';
+import { provideBrowserGlobalErrorListeners } from '@angular/core';
+import { createCustomElement } from '@angular/elements';
+import { createApplication } from '@angular/platform-browser';
+import { Gallery } from './gallery/gallery';
 
-bootstrapApplication(App, appConfig)
-  .catch((err) => console.error(err));
+createApplication({ providers: [ provideBrowserGlobalErrorListeners() ] })
+  .then(app => {
+    customElements.define('lm-gallery', createCustomElement(Gallery, { injector: app.injector }));
+  })
+  .catch(err => console.error(err));
